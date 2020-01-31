@@ -14,102 +14,97 @@ namespace Cookbook
 {
     public partial class frmMain : Form
     {
-        SqlConnection connection;
-        string connectionString;
+        DBFunction dB = new DBFunction();
 
         public frmMain()
         {
             InitializeComponent();
 
-            connectionString = ConfigurationManager.ConnectionStrings["Cookbook.Properties.Settings.CookbookConnectionString"].ConnectionString;
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            PopulateRecipes();
             
+
+            PopulateRecipes();
+            PopulateIngredients();
+            PopulateRecipeInfo();
         }
 
         private void PopulateRecipes()
         {
-            using (connection = new SqlConnection(connectionString))
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Recipe", connection))
-            {
-                DataTable recipeTable = new DataTable();
-                adapter.Fill(recipeTable);
+            DataTable recipeTable = dB.PullRecipeData();
 
-                listRecipes.DisplayMember = "Name";
-                listRecipes.ValueMember = "Id";
-                listRecipes.DataSource = recipeTable;
-            }
-            
-
+            listRecipes.DisplayMember = "Name";
+            listRecipes.ValueMember = "Id";
+            listRecipes.DataSource = recipeTable;
         }
 
         private void PopulateIngredients()
         {
-            string query = "SELECT a.Name FROM Ingredient a " +
-                "INNER JOIN RecipeIngredient b ON a.Id = b.IngredientId " +
-                "WHERE b.RecipeId = @RecipeId";
+            int selectedValue = listRecipes.SelectedIndex;
+            DataTable ingredientTable = dB.PullIngredientData(selectedValue);
 
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
-            {
-                command.Parameters.AddWithValue("@RecipeId", listRecipes.SelectedValue);
-                
-                DataTable ingredientTable = new DataTable();
-                adapter.Fill(ingredientTable);
+            listIngredients.DisplayMember = "Name";
+            listIngredients.ValueMember = "Id";
+            listIngredients.DataSource = ingredientTable;
+        }
 
-                listIngredients.DisplayMember = "Name";
-                listIngredients.ValueMember = "Id";
-                listIngredients.DataSource = ingredientTable;
-            }
+        private void PopulateRecipeInfo()
+        {
+            int selectedValue = listRecipes.SelectedIndex;
+            String[] recipeInfo = dB.PullRecipeInfo(selectedValue);
 
-
+            txtPrepTime.Text = recipeInfo[0];
+            txtInstructions.Text = recipeInfo[1];
         }
 
         private void listRecipes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            PopulateRecipeInfo();
             PopulateIngredients();
         }
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
+            //string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
 
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
+            //using (connection = new SqlConnection(connectionString))
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    connection.Open();
 
-                command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
+            //    command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
 
-                command.ExecuteScalar();
+            //    command.ExecuteScalar();
 
-            }
+            //}
 
-            PopulateRecipes();
+            //PopulateRecipes();
         }
 
         private void btnUpdateName_Click(object sender, EventArgs e)
         {
-            string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
+            //string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
 
-            using (connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                connection.Open();
+            //using (connection = new SqlConnection(connectionString))
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    connection.Open();
 
-                command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
-                command.Parameters.AddWithValue("@RecipeId", listRecipes.SelectedValue);
+            //    command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
+            //    command.Parameters.AddWithValue("@RecipeId", listRecipes.SelectedValue);
 
-                command.ExecuteScalar();
+            //    command.ExecuteScalar();
 
-            }
+            //}
 
-            PopulateRecipes();
+            //PopulateRecipes();
+        }
+
+        private void listIngredients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

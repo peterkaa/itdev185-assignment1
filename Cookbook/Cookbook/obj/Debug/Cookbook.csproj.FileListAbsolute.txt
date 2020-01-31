@@ -9,3 +9,15 @@ C:\Users\Adam\Desktop\Code\C#\ITDev185\itdev185-assignment1\Cookbook\Cookbook\ob
 C:\Users\Adam\Desktop\Code\C#\ITDev185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.csproj.GenerateResource.cache
 C:\Users\Adam\Desktop\Code\C#\ITDev185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.exe
 C:\Users\Adam\Desktop\Code\C#\ITDev185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.pdb
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\bin\Debug\Cookbook.mdf
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\bin\Debug\Cookbook_log.ldf
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\bin\Debug\Cookbook.exe.config
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\bin\Debug\Cookbook.exe
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\bin\Debug\Cookbook.pdb
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.csprojAssemblyReference.cache
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.frmMain.resources
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.Properties.Resources.resources
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.csproj.GenerateResource.cache
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.csproj.CoreCompileInputs.cache
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.exe
+C:\Users\petur\Desktop\Repos\ITDEV-185\itdev185-assignment1\Cookbook\Cookbook\obj\Debug\Cookbook.pdb
