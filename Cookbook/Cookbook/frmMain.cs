@@ -15,7 +15,8 @@ namespace Cookbook
     public partial class frmMain : Form
     {
         DBFunction dB = new DBFunction();
-
+        Recipe aRecipe;
+       
         public frmMain()
         {
             InitializeComponent();
@@ -42,8 +43,9 @@ namespace Cookbook
 
         private void PopulateIngredients()
         {
-            int selectedValue = listRecipes.SelectedIndex;
-            DataTable ingredientTable = dB.PullIngredientData(selectedValue);
+            string name = listRecipes.GetItemText(listRecipes.SelectedItem);
+
+            DataTable ingredientTable = dB.PullIngredientData(name);
 
             listIngredients.DisplayMember = "Name";
             listIngredients.ValueMember = "Id";
@@ -52,8 +54,9 @@ namespace Cookbook
 
         private void PopulateRecipeInfo()
         {
-            int selectedValue = listRecipes.SelectedIndex;
-            String[] recipeInfo = dB.PullRecipeInfo(selectedValue);
+            string name = listRecipes.GetItemText(listRecipes.SelectedItem);
+            
+            String[] recipeInfo = dB.PullRecipeInfo(name);
 
             txtPrepTime.Text = recipeInfo[0];
             txtInstructions.Text = recipeInfo[1];
@@ -67,44 +70,55 @@ namespace Cookbook
 
         private void btnAddRecipe_Click(object sender, EventArgs e)
         {
-            //string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
+            string option = "create";
+            string[] ingredients = txtInputIngred.Text.Split(' ');
+            aRecipe = new Recipe(txtInputRecipe.Text, ingredients, int.Parse(txtInputPrep.Text), txtInputInst.Text);
+            string message;
 
-            //using (connection = new SqlConnection(connectionString))
-            //using (SqlCommand command = new SqlCommand(query, connection))
-            //{
-            //    connection.Open();
+            message = dB.CRUDMethod(option, aRecipe);
 
-            //    command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
+            MessageBox.Show(message);
 
-            //    command.ExecuteScalar();
+            PopulateRecipes();
+            PopulateIngredients();
+            PopulateRecipeInfo();
+            clearFields();
 
-            //}
-
-            //PopulateRecipes();
         }
 
-        private void btnUpdateName_Click(object sender, EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            //string query = "INSERT INTO Recipe VALUES (@RecipeName, 80, 'blah blah')";
-
-            //using (connection = new SqlConnection(connectionString))
-            //using (SqlCommand command = new SqlCommand(query, connection))
-            //{
-            //    connection.Open();
-
-            //    command.Parameters.AddWithValue("@RecipeName", txtRecipeName.Text);
-            //    command.Parameters.AddWithValue("@RecipeId", listRecipes.SelectedValue);
-
-            //    command.ExecuteScalar();
-
-            //}
-
-            //PopulateRecipes();
+            Application.Exit();
         }
 
-        private void listIngredients_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnUpdateRecipe_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDeleteRecipe_Click(object sender, EventArgs e)
+        {
+            string option = "delete";
+            aRecipe = new Recipe(txtInputRecipe.Text);
+            string message;
+
+            message = dB.CRUDMethod(option, aRecipe);
+
+            MessageBox.Show(message);
+
+            PopulateRecipes();
+            PopulateIngredients();
+            PopulateRecipeInfo();
+            clearFields();
+
+        }
+
+        private void clearFields()
+        {
+            txtInputRecipe.Text = "";
+            txtInputIngred.Text = "";
+            txtInputPrep.Text = "";
+            txtInputInst.Text = "";
         }
     }
 }
