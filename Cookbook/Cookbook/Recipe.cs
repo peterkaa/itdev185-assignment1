@@ -26,6 +26,13 @@ namespace Cookbook
             RecipeName = recipeName;
         }
 
+        public Recipe(string recipeName, int prepTime, string instructions)
+        {
+            RecipeName = recipeName;
+            PrepTime = prepTime;
+            Instructions = instructions;
+        }
+
         public string RecipeName { get => recipeName; set => recipeName = value; }
         public string[] Ingredients { get => ingredients; set => ingredients = value; }
         public int PrepTime { get => prepTime; set => prepTime = value; }

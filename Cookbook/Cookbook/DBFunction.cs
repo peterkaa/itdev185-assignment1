@@ -227,6 +227,44 @@ namespace Cookbook
                     message = "recipe added!";
                     break;
                 case CRUDOption.Update:
+
+                    query = "SELECT Id from Recipe WHERE Name = @RecipeName";
+
+                    using (connection = new SqlConnection(connectionString))
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("@RecipeName", aRecipe.RecipeName);
+
+                        DataTable recipeInfo = new DataTable();
+
+                        adapter.Fill(recipeInfo);
+
+                        foreach (DataRow row in recipeInfo.Rows)
+                        {
+                            recipeId = int.Parse(row["Id"].ToString());
+                        }
+                    }
+
+                    query = "UPDATE Recipe SET PrepTime = @PrepTime, Instructions = @Instructions " +
+                        "WHERE Id = @Id";
+
+                    using (connection = new SqlConnection(connectionString))
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+
+                        command.Parameters.AddWithValue("@Id", recipeId);
+                        command.Parameters.AddWithValue("@PrepTime", aRecipe.PrepTime);
+                        command.Parameters.AddWithValue("@Instructions", aRecipe.Instructions);
+
+                        command.ExecuteScalar();
+                    }
+
+                    message = "recipe updated";
+
                     break;
                 case CRUDOption.Delete:
 
@@ -281,8 +319,6 @@ namespace Cookbook
             }
 
             return message;
-
-
         }
 
     }

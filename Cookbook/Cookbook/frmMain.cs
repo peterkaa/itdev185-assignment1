@@ -25,8 +25,6 @@ namespace Cookbook
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
-
             PopulateRecipes();
             PopulateIngredients();
             PopulateRecipeInfo();
@@ -93,6 +91,19 @@ namespace Cookbook
 
         private void btnUpdateRecipe_Click(object sender, EventArgs e)
         {
+            string option = "update";
+            
+            aRecipe = new Recipe(txtInputRecipe.Text, int.Parse(txtInputPrep.Text), txtInputInst.Text);
+            string message;
+
+            message = dB.CRUDMethod(option, aRecipe);
+
+            MessageBox.Show(message);
+
+            PopulateRecipes();
+            PopulateIngredients();
+            PopulateRecipeInfo();
+            clearFields();
 
         }
 
@@ -119,6 +130,30 @@ namespace Cookbook
             txtInputIngred.Text = "";
             txtInputPrep.Text = "";
             txtInputInst.Text = "";
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Fill all fields. List ingredients with a space in between each ingredient";
+
+            MessageBox.Show(message);
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Fill a recipe name. " +
+                "Then list the updated instructions and prep time. " +
+                "Updating the ingredient list is unavailable";
+
+            MessageBox.Show(message);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Fill a recipe name. " +
+                "The relating row will be deleted from the database.";
+
+            MessageBox.Show(message);
         }
     }
 }
